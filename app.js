@@ -31,6 +31,12 @@ function renderAssets(req, res) {
       res.write(fileLogoKabinet);
       res.end();
       break;
+    case '/assets/img/logo-rpl.png':
+      res.writeHead(200, { 'Content-Type': 'image/png' });
+      const fileLogoRPL = fs.readFileSync('./assets/img/logo-rpl.png');
+      res.write(fileLogoRPL);
+      res.end();
+      break;
     case '/assets/img/success.svg':
       res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
       const illustrationSuccess = fs.readFileSync('./assets/img/success.svg');

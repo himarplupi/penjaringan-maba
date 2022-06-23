@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
 
 :root {
-  --primary-color: #DE754C;
-  --secondary-color: #9E2A2B;
-  --text-color: #D9D9D6;
+  --primary-color: #de754c;
+  --secondary-color: #9e2a2b;
+  --text-color: #d9d9d6;
   --bg-color: #151515;
 }
 
@@ -47,7 +47,7 @@ form {
 .label {
   display: block;
   /* font-weight: 600; */
-  margin: 1rem 0 .75rem 0;
+  margin: 1rem 0 0.75rem 0;
   color: var(--primary-color);
 }
 
@@ -57,7 +57,8 @@ form {
   flex-flow: column-reverse;
 }
 
-.field_input label, .field_input input {
+.field_input label,
+.field_input input {
   transition: all 0.2s;
   touch-action: manipulation;
 }
@@ -67,15 +68,14 @@ form {
   font-size: 14px;
   color: #666565;
   font-weight: 600;
-  margin-bottom: .25rem;
-
+  margin-bottom: 0.25rem;
 }
 
 .field_input input {
   display: block;
   width: 100%;
   font-size: 16px;
-  padding: .5rem 4px;
+  padding: 0.5rem 4px;
   outline: none;
   background-color: transparent;
   border-width: 0 0 2px 0;
@@ -103,7 +103,7 @@ form {
   text-overflow: ellipsis;
   transform-origin: left bottom;
   transform: translate(0, 2.125rem) scale(1.25);
-  margin-bottom: .25rem;
+  margin-bottom: 0.25rem;
   font-weight: 400;
 }
 
@@ -156,7 +156,7 @@ form {
   color: var(--text-color);
 }
 
-.field_radio input[type="radio"] {
+.field_radio input[type='radio'] {
   cursor: pointer;
   /* Add if not using autoprefixer */
   -webkit-appearance: none;
@@ -180,8 +180,8 @@ form {
   margin-top: 1em;
 }
 
-.field_radio input[type="radio"]::before {
-  content: "";
+.field_radio input[type='radio']::before {
+  content: '';
   width: 0.65em;
   height: 0.65em;
   border-radius: 50%;
@@ -190,7 +190,7 @@ form {
   box-shadow: inset 1em 1em var(--primary-color);
 }
 
-.field_radio input[type="radio"]:checked::before {
+.field_radio input[type='radio']:checked::before {
   transform: scale(1);
 }
 
@@ -206,13 +206,13 @@ form {
 .field_file .file_img {
   display: none;
   width: 100%;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 
 .field_file p {
   width: 100%;
   height: 100%;
-  line-height: 190px;
+  line-height: 185px;
   text-align: center;
 }
 
@@ -226,12 +226,24 @@ form {
   opacity: 0;
 }
 
+.field_file .file_remove {
+  color: var(--text-color);
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1rem;
+  cursor: pointer;
+  background-color: transparent;
+  width: fit-content;
+  padding: 0;
+}
+
 /* Button */
 button {
   width: 100%;
   font-size: 16px;
   font-weight: 700;
-  padding: .5rem 4px;
+  padding: 0.5rem 4px;
   background-color: var(--primary-color);
   border: none;
   color: var(--text-color);
@@ -254,17 +266,21 @@ footer {
   text-align: center;
   /* position: fixed;
   bottom: 0; */
-  padding: 1rem 0;
+  padding: 1rem 0 0 0;
 }
 
 footer img {
   width: 50px;
+  margin: 1rem .5rem;
 }
 
 .copy {
+  background-color: #9e2a2b;
   display: block;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
+  color: var(--text-color);
+  margin-top: 1rem;
+  padding: .5rem 0;
+  font-weight: 600;
 }
 
 .feedback {
@@ -287,7 +303,7 @@ footer img {
   width: 100%;
   height: 100px;
   margin: 1.5rem;
-  border: 1px solid #3F3D56;
+  border: 1px solid #3f3d56;
   border-radius: 5px;
   padding: 1rem;
 }
@@ -297,7 +313,7 @@ footer img {
 }
 
 .contact .contact_person {
-  padding: .5rem;
+  padding: 0.5rem;
   text-align: center;
   color: var(--secondary-color);
   font-weight: 500;
@@ -315,7 +331,7 @@ footer img {
   }
 
   .container h1 {
-    padding: 0 .5rem;
+    padding: 0 0.5rem;
     line-height: 28px;
   }
 }
