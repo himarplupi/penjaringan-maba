@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Penjaringan Mahasiswa Baru</title>
+  <link rel="shortcut icon" href="assets/img/logo-himarpl.png" type="image/x-icon">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>
+      Penjaringan Maba
+      <span class="rpl">Rekayasa Perangkat Lunak</span>
+    </h1>
+
+    <form method="POST" action="/" enctype="multipart/form-data" onchange="validateForm(this)">
+      <div class="field_input">
+        <input type="text" name="nama" id="nama" placeholder="Nama" autocomplete="off">
+        <label for="nama">Nama Lengkap</label>
+      </div>
+      <div class="field_input">
+        <input type="text" name="sekolah" id="sekolah" placeholder="Asal Sekolah" autocomplete="off">
+        <label for="sekolah">Asal Sekolah</label>
+      </div>
+      <div class="field_input">
+        <input type="tel" name="telp" id="telp" placeholder="Telepon" autocomplete="off">
+        <label for="telp">No. Telepon</label>
+      </div>
+
+      <label class="label">Jalur</label>
+      <div class="field_radio">
+        <input type="radio" name="jalur" id="kip" value="KIP" checked />
+        <label for="kip">KIP</label>
+      </div>
+      <div class="field_radio">
+        <input type="radio" name="jalur" id="reguler" value="Reguler" />
+        <label for="reguler">Reguler</label>
+      </div>
+
+      <label class="label">Jenis Kelamin</label>
+      <div class="field_radio">
+        <input type="radio" name="jenis_kelamin" id="L" value="L" checked />
+        <label for="L">Laki-laki</label>
+      </div>
+      <div class="field_radio">
+        <input type="radio" name="jenis_kelamin" id="P" value="P" />
+        <label for="P">Perempuan</label>
+      </div>
+
+      <label class="label">Screenshot hasil pengumuman SBMPTN</label>
+      <div class="field_file">
+        <img class="file_img" id="img-preview" src="" alt="">
+        <input type="file" name="screenshot" id="screenshot" onchange="showImage()" accept="image/png, image/jpeg, image/jpg">
+        <p id="caption">Drag file atau klik area kotak</p>
+      </div>
+
+      <div class="warning">
+        <i class="fa-solid fa-circle-exclamation"></i> 
+        Harap screenshot bukti sudah mengisi form!
+      </div>
+
+      <button id="btn-confirm" disabled>Submit</button>
+      <button type="submit" id="btn-submit" style="display: none;"></button>
+    </form>
+  </main>
+
+  <footer>
+    <span class="copy">&copy;Copyright</span>
+    <img src="assets/img/logo-himarpl.png" alt="Logo HIMARPL">
+    <img src="assets/img/logo-kabinet-explora.png" alt="Logo HIMARPL">
+  </footer>
+
+  <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+  <script src="https://kit.fontawesome.com/33696e8b5a.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+  <script src="assets/js/index.js"></script>
+</body>
+</html>
