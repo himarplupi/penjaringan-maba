@@ -43,10 +43,16 @@ function renderAssets(req, res) {
       res.write(illustrationSuccess);
       res.end();
       break;
+    case '/assets/img/success-register.svg':
+      res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
+      const illustrationSuccessRegister = fs.readFileSync('./assets/img/success-register.svg');
+      res.write(illustrationSuccessRegister);
+      res.end();
+      break;
   }
 }
 
-function handleInsert(req, res) {
+function handleInsertSheet1(req, res) {
   const form = new formidable.IncomingForm();
 
   form.parse(req, async (err, fields, files) => {
@@ -56,6 +62,7 @@ function handleInsert(req, res) {
       return;
     }
 
+    const range = 'Sheet1!A2:F';
     const { nama, sekolah, telp, jalur, jenis_kelamin } = fields;
 
     if (!nama || !sekolah || !telp || !jalur || !jenis_kelamin) {
@@ -68,19 +75,67 @@ function handleInsert(req, res) {
 
     try {
       // Data for sheets
-      const id = await getLastNo();
+      const id = await getLastNo(range);
       const values = [[ String(Number(id)+1), ...Object.values(fields) ]];
 
       // Data for drive
       const { mimetype, filepath } = files.screenshot;
       const filename = `${Number(id) + 1}. ${fields.nama} - ${fields.telp}`;
   
-      const insertedData = await inserToSheet(values);
+      const insertedData = await inserToSheet(values, range);
       const uploadedImage = await upload(filename, mimetype, filepath);
 
       if (insertedData.statusText.toLowerCase() === 'ok' && uploadedImage.statusText.toLowerCase() === 'ok') {
         res.writeHead(302, {
           'Location': '/success'
+        });
+        res.end();
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+}
+
+function handleInsertSheet2(req, res) {
+  const form = new formidable.IncomingForm();
+
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      res.writeHead(err.httpCode || 400, { 'Content-Type': 'text/plain' });
+      res.end(String(err));
+      return;
+    }
+
+    const range = 'Sheet2!A2:F';
+    const { nama, jalur, formKesehatan, updateBiodata, uploadSP } = fields;
+
+    if (!nama || !jalur) {
+      res.writeHead(302, {
+        'Location': '/progress'
+      });
+      res.end();
+      return;
+    }
+
+    try {
+      // Data for sheets
+      const id = await getLastNo(range);
+      let data = { nama, jalur, formKesehatan};
+
+      if (jalur === 'sbmptn') {
+        data.updateBiodata = updateBiodata;
+        data.uploadSP = uploadSP;
+      }
+
+      const values = [[ String(Number(id)+1), ...Object.values(data) ]];
+  
+      const insertedData = await inserToSheet(values, range);
+
+      if (insertedData.statusText.toLowerCase() === 'ok') {
+        res.writeHead(302, {
+          'Location': '/success-register'
         });
         res.end();
         return;
@@ -112,12 +167,25 @@ const server = http.createServer(async (req, res) => {
         renderHtml('./index.html', res);
         break;
       case 'post':
-        handleInsert(req, res);
+        handleInsertSheet1(req, res);
         break;
+    }
+  } else if (req.url === '/progress') {
+    switch (req.method.toLowerCase()) {
+     case 'get':
+       res.writeHead(200, { 'Content-Type': 'text/html' });
+       renderHtml('./progressRegistrasi.html', res);
+      break;
+    case 'post':
+      handleInsertSheet2(req, res);
+      break
     }
   } else if (req.url === '/success' && req.method.toLowerCase() === 'get') {
     res.writeHead(200, { 'Content-Type': 'text/html' });
     renderHtml('./success.html', res);
+  } else if (req.url === '/success-register' && req.method.toLowerCase() === 'get') {
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    renderHtml('./success-register.html', res);
   }
 });
 

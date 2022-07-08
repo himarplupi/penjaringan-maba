@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pendataan Registrasi Mahasiswa Baru</title>
+  <link rel="shortcut icon" href="assets/img/logo-himarpl.png" type="image/x-icon">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css" />
+  <style>
+    #show1{
+      display: none;
+    }
+    #show2{
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>
+      Pendataan Registrasi Mahasiswa Baru
+      <span class="rpl">Rekayasa Perangkat Lunak</span>
+    </h1>
+
+    <form method="POST" action="/progress" enctype="multipart/form-data" onchange="validateFormProgressRegistrasi(this)">
+      <div class="field_input">
+        <input type="text" name="nama" id="nama" placeholder="Nama" autocomplete="off">
+        <label for="nama">Nama Lengkap</label>
+      </div>
+
+      <!-- <div class="field_select">
+        <select name="jalur" id="jalur" onchange="showDiv(this)">
+          <option value="">Pilih</option>
+          <option value="snmptn">SNMPTN</option>
+          <option value="sbmptn">SBMPTN</option>
+        </select>
+        <label for="jalur">Jalur Masuk</label>
+      </div> -->
+
+      <div class="field_select">  
+        <select name="jalur" id="jalur" onchange="showDiv(this)" onclick="this.setAttribute('value', this.value);" value="">
+          <option value=""></option>
+          <option value="snmptn">SNMPTN</option>
+          <option value="sbmptn">SBMPTN</option>
+        </select>
+        <label>Jalur Masuk</label>
+      </div>
+
+      <div id="show1">
+        <label class="label">Udah isi/update form biodata?</label>
+        <div class="field_radio">
+          <input type="radio" name="updateBiodata" id="Udah" value="Udah" />
+          <label for="Udah">Udah</label>
+        </div>
+        <div class="field_radio">
+          <input type="radio" name="updateBiodata" id="Belum" value="Belum" checked/>
+          <label for="Belum">Belum</label>
+        </div>
+
+        <label class="label">Udah upload surat pernyataan mahasiswa baru?</label>
+        <div class="field_radio">
+          <input type="radio" name="uploadSP" id="Udah" value="Udah" />
+          <label for="Udah">Udah</label>
+        </div>
+        <div class="field_radio">
+          <input type="radio" name="uploadSP" id="Belum" value="Belum" checked />
+          <label for="Belum">Belum</label>
+        </div>
+      </div>
+
+      <div id="show2">
+        <label class="label">Udah isi form kesehatan?</label>
+        <div class="field_radio">
+          <input type="radio" name="formKesehatan" id="Udah" value="Udah" />
+          <label for="Udah">Udah</label>
+        </div>
+        <div class="field_radio">
+          <input type="radio" name="formKesehatan" id="Belum" value="Belum" checked />
+          <label for="Belum">Belum</label>
+        </div>
+      </div>
+
+      <button id="btn-confirm" disabled>Submit</button>
+      <button type="submit" id="btn-submit" style="display: none;"></button>
+    </form>
+  </main>
+
+  <footer>
+    <p>Support By:</p>
+    <img src="assets/img/logo-rpl.png" alt="Logo RPL">
+    <img src="assets/img/logo-himarpl.png" alt="Logo HIMARPL">
+    <img src="assets/img/logo-kabinet-explora.png" alt="Logo Kabinet Explora">
+    <span class="copy">&copy;Copyright HIMARPL 2022</span>
+  </footer>
+
+  <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+  <script src="https://kit.fontawesome.com/33696e8b5a.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+  <script>
+    const btnSubmit = document.getElementById('btn-submit');
+    const btnConfirm = document.getElementById('btn-confirm');
+    btnConfirm.addEventListener('click', submitForm);
+
+    function submitForm(event) {
+      event.preventDefault();
+
+      Swal.fire({
+        title: 'Apakah kamu sudah yakin?',
+        text: 'Pastikan data yang kamu inputkan sudah benar!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#DE754C',
+        cancelButtonColor: '#9E2A2B',
+        confirmButtonText: 'Ya, saya sudah yakin!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          btnSubmit.click();
+        }
+      });
+    }
+
+    function showDiv(element){
+      if(element.value == 'snmptn'){
+        document.getElementById('show1').style.display = 'none';
+        document.getElementById('show2').style.display = 'block';
+      } else if (element.value == 'sbmptn') {
+        document.getElementById('show1').style.display = 'block';
+        document.getElementById('show2').style.display = 'block';
+      } else {
+        document.getElementById('show1').style.display = 'none';
+        document.getElementById('show2').style.display = 'none';
+      }
+    }
+
+    function validateFormProgressRegistrasi(elm) {
+      const nama = elm.querySelector('#nama').value;
+      const jalur = elm.querySelector('#jalur').value;
+      // const updateBiodata = elm.querySelector('input[name="updateBiodata"]').value;
+  
+      btnConfirm.setAttribute('disabled', true);
+  
+      if (nama && jalur) {
+          btnConfirm.removeAttribute('disabled');
+      }
+    }
+  </script>
+</body>
+</html>

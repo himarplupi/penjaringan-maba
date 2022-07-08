@@ -22,10 +22,10 @@ const googleSheets = google.sheets({
 
 const spreadsheetId = '1YfXCLR-A-hYB7TKrqNSt7zTDv6YYYB9BeWY-jmrepZc';
 
-async function getLastNo() {
+async function getLastNo(range) {
   try {
     const result = await googleSheets.spreadsheets.values.get({
-      range: 'Sheet1!A2:A',
+      range,
       spreadsheetId,
     });
   
@@ -37,11 +37,11 @@ async function getLastNo() {
   }
 }
 
-async function inserToSheet(values) {
+async function inserToSheet(values, range) {
   try {
     const result = await googleSheets.spreadsheets.values.append({
       spreadsheetId,
-      range: 'Sheet1!A2:F',
+      range,
       valueInputOption: 'RAW',
       resource: {
         values,
